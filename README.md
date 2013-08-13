@@ -1,6 +1,6 @@
 twitter-vine
 =======
-Get all twitter and vine posts with a certain hashtag, print the feed, and save to a database for future use.
+Get all twitter and vine posts with a certain hashtag, print the feed, and save to a database for future use. See working [example](http://junit.co/twitter-vine/).
 
 ### Database
 Backups are located [here](https://github.com/jfrazelle/twitter-vine/tree/master/db).

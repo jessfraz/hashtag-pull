@@ -3,10 +3,10 @@ twitter-vine
 Get all twitter and vine posts with a certain hashtag, print the feed, and save to a database for future use. See working [example](http://junit.co/twitter-vine/).
 
 ## How it works
-- Searches twitter for images with the hashtag and saves them to a database
-- Searches twitter for links with the hashtag and the link containing ```vine.co```, parses the link for the ```twitter:player:stream``` meta property and gets the mp4 video link from the url.
-- Only pulls from twitter api every 2 minutes to avoid rate limiting
-- Shows the feed of the pictures and videos with the API
+- Searches Twitter for images with the hashtag and saves them to the database.
+- Searches Twitter for links with the hashtag and a link containing ```vine.co```, parses the link's contents for the ```twitter:player:stream``` meta property and saves the mp4 video link to the database.
+- Only performs the above API calls every 2 minutes to avoid rate limiting.
+- Shows the feed of the pictures and videos from the database, and refreshes the feed every five minutes.
 
 ### Hashtag
 Set the hashtag to be pulled in [config.php](https://github.com/jfrazelle/twitter-vine/tree/master/config.php).

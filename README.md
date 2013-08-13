@@ -1,5 +1,4 @@
-twitter-vine
-=======
+### Twitter and Vine Hashtag Feed
 Get all twitter and vine posts with a certain hashtag, print the feed, and save to a database for future use. See working [example](http://junit.co/twitter-vine/).
 
 ## How it works

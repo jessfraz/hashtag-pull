@@ -250,6 +250,7 @@ a:focus {
 }
 .feed li img {
   max-width: 100%;
+  height: auto;
 }
 .pull-right {
   float: right;

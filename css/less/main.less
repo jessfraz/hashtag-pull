@@ -1,0 +1,109 @@
+// Variables
+// -------------------------
+@black:                 #000;
+@grayDarker:            #222;
+@grayDark:              #333;
+@gray:                  #555;
+@grayLight:             #999;
+@grayLighter:           #eee;
+@white:                 #fff;
+
+@blue:                  #049cdb;
+@blueDark:              #0064cd;
+@green:                 #46a546;
+@red:                   #9d261d;
+@yellow:                #ffc40d;
+@orange:                #f89406;
+@pink:                  #c3325f;
+@purple:                #7a43b6;
+
+@bodyBackground:        @white;
+@textColor:             @grayDark;
+@hrBorder:              @grayLighter;
+
+@linkColor:             #08c;
+@linkColorHover:        darken(@linkColor, 15%);
+
+@sansFontFamily:        "Helvetica Neue", Helvetica, Arial, sans-serif;
+@serifFontFamily:       Georgia, "Times New Roman", Times, serif;
+@monoFontFamily:        Monaco, Menlo, Consolas, "Courier New", monospace;
+
+@baseFontSize:          14px;
+@baseFontFamily:        @sansFontFamily;
+@baseLineHeight:        20px;
+@altFontFamily:         @serifFontFamily;
+
+@headingsFontFamily:    inherit; // empty to use BS default, @baseFontFamily
+@headingsFontWeight:    bold;    // instead of browser default, bold
+@headingsColor:         inherit; // empty to use BS default, @textColor
+
+
+@import "mixins.less";
+@import "type.less";
+
+
+// Scaffolding
+// -------------------------
+body {
+  margin: 0;
+  font-family: @baseFontFamily;
+  font-size: @baseFontSize;
+  line-height: @baseLineHeight;
+  color: @textColor;
+  background-color: @bodyBackground;
+}
+.container {
+	position:relative;
+	overflow:hidden;
+	margin:0 auto;
+	padding:0;
+	text-align:left;
+}
+
+
+// Links
+// -------------------------
+a {
+  color: @linkColor;
+  text-decoration: none;
+  .transition(all 0.3s ease-in);
+}
+a:hover,
+a:focus {
+  color: @linkColorHover;
+  text-decoration: underline;
+}
+
+
+// Styles
+// -------------------------
+
+.feed {
+	position: relative;
+	.clearfix;
+	list-style:none;
+	margin:0;
+	padding:0;
+	width:100%;
+	text-align:center;
+	li {
+		max-width:320px;
+		width:33%;
+		margin:0;
+		padding:0;
+		display:inline-block;
+		position:relative;
+		img {
+			max-width:100%;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+@import "utilities.less";

@@ -1,5 +1,5 @@
 /*
-twitter-vine - v - 2013-08-12
+twitter-vine - v - 2013-08-13
 Pulls twitter and vine posts with a certain hashtag.
 Lovingly coded by Jess Frazelle  - http://frazelledazzell.com/ 
 */

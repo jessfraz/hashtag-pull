@@ -28,7 +28,7 @@
 @serifFontFamily:       Georgia, "Times New Roman", Times, serif;
 @monoFontFamily:        Monaco, Menlo, Consolas, "Courier New", monospace;
 
-@baseFontSize:          14px;
+@baseFontSize:          16px;
 @baseFontFamily:        @sansFontFamily;
 @baseLineHeight:        20px;
 @altFontFamily:         @serifFontFamily;
@@ -51,6 +51,7 @@ body {
   line-height: @baseLineHeight;
   color: @textColor;
   background-color: @bodyBackground;
+  text-align:center;
 }
 .container {
 	position:relative;
@@ -88,14 +89,21 @@ a:focus {
 	text-align:center;
 	li {
 		max-width:320px;
+		max-height:320px;
 		width:33%;
 		margin:0;
 		padding:0;
 		display:inline-block;
 		position:relative;
+		vertical-align:top;
+		overflow:hidden;
 		img {
-			max-width:100%;
+			min-width:100%;
 			height:auto;
+			width:auto;
+			min-height:100%;
+			margin:0;
+			padding:0;
 		}
 	}
 }

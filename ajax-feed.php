@@ -45,10 +45,10 @@ class DomFinder {
 	}
 }
 
-function shouldUpdate($db){
+function shouldUpdate($db, $hashtag){
 	$db_con = mysqli_connect($db['host'], $db['user'], $db['password'], $db['name']);
 	$now = time();
-	$query = mysqli_query($db_con, "SELECT * FROM media ORDER BY twitter_id DESC LIMIT 1");
+	$query = mysqli_query($db_con, "SELECT * FROM media WHERE hashtag='$hashtag' ORDER BY twitter_id DESC LIMIT 1");
 	$result = mysqli_fetch_array($query);
 
 	mysqli_close($db_con);
@@ -83,34 +83,40 @@ function update($db, $twitter){
 		)
 	);
 
+	$hashtag = $twitter['hashtag'];
+
 	foreach($content as $name => $media){
-		foreach($media->statuses as $tweet){
-			if ($tweet->id > $twitter['last_id'] && (!empty($tweet->entities->urls) || isset($tweet->entities->media))){
-				$twitter_id = $tweet->id;
-				$created_at = $tweet->created_at;
-				$user_id = $tweet->user->id;
-				$this_name = mysqli_real_escape_string($db_con, $tweet->user->name);
-				$screen_name = $tweet->user->screen_name;
-				$user_location = $tweet->user->location;
-				$text = mysqli_real_escape_string($db_con, $tweet->text);
-				$time_now = time();
-				$is_vine = false;
-				$is_tweet = false;
-				if ($name == 'twitter' && isset($tweet->entities->media)){
-					$is_tweet = true;
-					$media_url = $tweet->entities->media[0]->media_url;
-					$media_url_https = $tweet->entities->media[0]->media_url_https;
-				} else if (strpos($tweet->entities->urls[0]->expanded_url,'vine.co') !== false && $name == 'vine' && !empty($tweet->entities->urls) && isset($tweet->entities->urls[0]->expanded_url)){
-					$is_vine = true;
-					$media_url = $tweet->entities->urls[0]->expanded_url;
-					$dom = new DomFinder($media_url);
-					$content_cell = $dom->find("//meta[@property='twitter:player:stream']", 'content');
-					$media_url_https = $content_cell[0];
-				}
-				if ($is_tweet || $is_vine){
-					mysqli_query($db_con, 
-						"insert into media (time_now, twitter_id, created_at, user_id, name, screen_name, user_location, text, media_url, media_url_https, source) ".
-						"values('$time_now', '$twitter_id', '$created_at','$user_id','$this_name','$screen_name', '$user_location', '$text', '$media_url', '$media_url_https', '$name')") or die(mysqli_error($db_con));
+		if (isset($media->statuses)){
+			foreach($media->statuses as $tweet){
+				if ($tweet->id > $twitter['last_id'] && (!empty($tweet->entities->urls) || isset($tweet->entities->media))){
+					$twitter_id = $tweet->id;
+					$created_at = $tweet->created_at;
+					$user_id = $tweet->user->id;
+					$this_name = mysqli_real_escape_string($db_con, $tweet->user->name);
+					$screen_name = $tweet->user->screen_name;
+					$user_location = mysqli_real_escape_string($db_con, $tweet->user->location);
+					$text = mysqli_real_escape_string($db_con, $tweet->text);
+					$time_now = time();
+					$is_vine = false;
+					$is_tweet = false;
+					if ($name == 'twitter' && isset($tweet->entities->media)){
+						$is_tweet = true;
+						$media_url = $tweet->entities->media[0]->media_url;
+						$media_url_https = $tweet->entities->media[0]->media_url_https;
+					} else if (strpos($tweet->entities->urls[0]->expanded_url,'vine.co') !== false && $name == 'vine' && !empty($tweet->entities->urls) && isset($tweet->entities->urls[0]->expanded_url)){
+						$is_vine = true;
+						$media_url = $tweet->entities->urls[0]->expanded_url;
+						$dom = new DomFinder($media_url);
+						$video_cell = $dom->find("//meta[@property='twitter:player:stream']", 'content');
+						$picture_cell = $dom->find("//meta[@property='twitter:image']", 'content');
+						$media_url = $picture_cell[0];
+						$media_url_https = $video_cell[0];
+					}
+					if ($is_tweet || $is_vine){
+						mysqli_query($db_con, 
+							"insert into media (time_now, twitter_id, created_at, user_id, name, screen_name, user_location, text, media_url, media_url_https, source, hashtag) ".
+							"values('$time_now', '$twitter_id', '$created_at','$user_id','$this_name','$screen_name', '$user_location', '$text', '$media_url', '$media_url_https', '$name', '$hashtag')") or die(mysqli_error($db_con));
+					}
 				}
 			}
 		}
@@ -128,7 +134,7 @@ function outputFeed($db){
 			if ($post['source'] == 'twitter'){
 				$media = '<img src="' . $post['media_url'] . '" alt=""/>';
 			} else {
-				$media = '<video width="320" height="320" controls>
+				$media = '<video width="320" height="320" controls poster="'. $post['media_url'] . '">
 					<source src="'. $post['media_url_https'] . '" type="video/mp4">
 					Your browser does not support the video tag.
 					</video>';
@@ -138,11 +144,11 @@ function outputFeed($db){
 	}
 	$html .= '</ul>';
 	mysqli_close($db_con);
-	
+
 	return $html;
 }
 
-$shouldUpdate = shouldUpdate($db);
+$shouldUpdate = shouldUpdate($db, $twitter['hashtag']);
 if ($shouldUpdate !== false){
 	$twitter['last_id'] = $shouldUpdate;
 	update($db, $twitter);

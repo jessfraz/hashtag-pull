@@ -3,7 +3,7 @@ Get all twitter and vine posts with a certain hashtag, print the feed, and save 
 
 ## How it works
 - Searches Twitter for images with the hashtag and saves them to the database.
-- Searches Twitter for links with the hashtag and a link containing ```vine.co```, parses the link's contents for the ```twitter:player:stream``` meta property and saves the mp4 video link to the database.
+- Searches Twitter for links with the hashtag and a link containing ```vine.co```, parses the link's contents for the ```twitter:player:stream``` and ```twitter:image``` meta properties and saves the mp4 video link and video placeholder to the database.
 - Only performs the above API calls every 2 minutes to avoid rate limiting.
 - Shows the feed of the pictures and videos from the database, and refreshes the feed every five minutes.
 
@@ -20,6 +20,9 @@ Backups are located [here](https://github.com/jfrazelle/twitter-vine/tree/master
 3. Create a New Application. Enter a name (this is for your reference), a description (again for your reference), and your site's URL. The callback URL is a moot point for the use of the application so it can be left blank.
 4. Create my Access Token (this is a button, click it)
 5. View the details tab. Copy and paste the correlating keys and secrets into [config.php](https://github.com/jfrazelle/twitter-vine/tree/master/config.php).
+
+### Recommendations
+Since this is using a work around for what will eventually be replaced by the vine API, I would suggest using a cron job for the ```update()``` function and only calling from the database when a visitor hits the server. This should reduce load time and make sure the server is not over worked.
 
 ### Build Instructions
 This project uses [Grunt](http://gruntjs.com) to automate build tasks (eg. compile less and minimize js).

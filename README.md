@@ -1,5 +1,5 @@
 ### Twitter and Vine Hashtag Feed
-Get all twitter and vine posts with a certain hashtag, print the feed, and save to a database for future use. See working [example](http://junit.co/twitter-vine/).
+Get all Twitter and Vine posts with a certain hashtag, print the feed, and save to a database for future use. See working [example](http://junit.co/twitter-vine/).
 
 ## How it works
 - Searches Twitter for images with the hashtag and saves them to the database.
@@ -22,7 +22,7 @@ Backups are located [here](https://github.com/jfrazelle/twitter-vine/tree/master
 5. View the details tab. Copy and paste the correlating keys and secrets into [config.php](https://github.com/jfrazelle/twitter-vine/tree/master/config.php).
 
 ### Recommendations
-Since this is using a work around for what will eventually be replaced by the vine API, I would suggest using a cron job for the ```update()``` function and only calling from the database when a visitor hits the server. This should reduce load time and make sure the server is not over worked.
+Since this is using a work around for what will eventually be replaced by the Vine API, I would suggest using a cron job for the ```update()``` function and only calling from the database when a visitor hits the server. This should reduce load time and make sure the server is not over worked.
 
 ### Build Instructions
 This project uses [Grunt](http://gruntjs.com) to automate build tasks (eg. compile less and minimize js).

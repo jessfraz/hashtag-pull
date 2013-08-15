@@ -7,12 +7,11 @@ Get all Twitter and Vine posts with a certain hashtag, print the feed, and save 
 - Only performs the above API calls every 2 minutes to avoid rate limiting.
 - Shows the feed of the pictures and videos from the database, and refreshes the feed every five minutes.
 
-### Hashtag
-Set the hashtag to be pulled in [config.php](https://github.com/jfrazelle/twitter-vine/tree/master/config.php).
+### Configurations
+- Set the hashtag to be pulled in [config.php](https://github.com/jfrazelle/twitter-vine/tree/master/config.php).
+- Backups are located [here](https://github.com/jfrazelle/twitter-vine/tree/master/db).
 
-### Database
-Backups are located [here](https://github.com/jfrazelle/twitter-vine/tree/master/db).
-- Place database credentials into [config.php](https://github.com/jfrazelle/twitter-vine/tree/master/config.php).
+	- Place database credentials into [config.php](https://github.com/jfrazelle/twitter-vine/tree/master/config.php).
 
 ### Create a Twitter application
 1. Sign in with [Twitter Developer](https://dev.twitter.com/)

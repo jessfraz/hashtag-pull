@@ -125,10 +125,10 @@ function update($db, $twitter){
 	mysqli_close($db_con);
 }
 
-function outputFeed($db){
+function outputFeed($db, $hashtag){
 	$html = '<ul class="feed">';
 	$db_con = mysqli_connect($db['host'], $db['user'], $db['password'], $db['name']);
-	$query = mysqli_query($db_con, "SELECT * FROM media ORDER BY twitter_id DESC");
+	$query = mysqli_query($db_con, "SELECT * FROM media WHERE hashtag='$hashtag' ORDER BY twitter_id DESC");
 	if (mysqli_num_rows($query) > 0) {
 		while ($post = mysqli_fetch_assoc($query)) { 
 			if ($post['source'] == 'twitter'){
@@ -154,7 +154,7 @@ if ($shouldUpdate !== false){
 	update($db, $twitter);
 }
 
-echo outputFeed($db);
+echo outputFeed($db, $twitter['hashtag']);
 
 
 ?>

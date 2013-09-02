@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.13)
 # Database: hashtag_pull
-# Generation Time: 2013-09-02 00:35:38 +0000
+# Generation Time: 2013-09-02 01:01:52 +0000
 # ************************************************************
 
 
@@ -29,7 +29,7 @@ CREATE TABLE `media` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `time_now` bigint(20) DEFAULT NULL,
   `created_at` varchar(255) DEFAULT NULL,
-  `source_id` varchar(255) DEFAULT NULL,
+  `source_id` varchar(100) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   `name` text,
   `screen_name` varchar(255) DEFAULT NULL,
@@ -41,7 +41,8 @@ CREATE TABLE `media` (
   `type` varchar(255) DEFAULT NULL,
   `approved` tinyint(1) DEFAULT '0',
   `hashtag` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `source_id` (`source_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 

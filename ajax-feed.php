@@ -131,9 +131,9 @@ function updateTwitter($db, $twitter, $hashtag){
                         $media_url_https = $video_cell[0];
                     }
                     if ($is_tweet || $is_vine){
-                        mysqli_query($db_con, 
+                        if (mysqli_query($db_con, 
                             "insert into media (time_now, source_id, created_at, user_id, name, screen_name, user_location, text, media_url, media_url_https, source, type, hashtag) ".
-                            "values('$time_now', '$twitter_id', '$created_at','$user_id','$this_name','$screen_name', '$user_location', '$text', '$media_url', '$media_url_https', 'twitter', '$type', '$hashtag')") or die(mysqli_error($db_con));
+                            "values('$time_now', '$twitter_id', '$created_at','$user_id','$this_name','$screen_name', '$user_location', '$text', '$media_url', '$media_url_https', 'twitter', '$type', '$hashtag')")){}
                     }
                 }
             }
@@ -182,9 +182,9 @@ function updateInstagram($db, $instagram, $hashtag){
             $media_url_https= '';
         }
 
-        mysqli_query($db_con, 
+        if (mysqli_query($db_con, 
             "insert into media (time_now, source_id, created_at, user_id, name, screen_name, text, media_url, media_url_https, source, type, hashtag) ".
-            "values('$time_now', '$source_id', '$created_at','$user_id','$this_name','$screen_name', '$text', '$media_url', '$media_url_https', 'instagram', '$type', '$hashtag')") or die(mysqli_error($db_con));
+            "values('$time_now', '$source_id', '$created_at','$user_id','$this_name','$screen_name', '$text', '$media_url', '$media_url_https', 'instagram', '$type', '$hashtag')")){}
     }
 
     mysqli_close($db_con);

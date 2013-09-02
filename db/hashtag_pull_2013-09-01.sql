@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# Host: 127.0.0.1 (MySQL 5.6.10)
-# Database: twitter_vine
-# Generation Time: 2013-08-13 22:30:29 +0000
+# Host: 127.0.0.1 (MySQL 5.6.13)
+# Database: hashtag_pull
+# Generation Time: 2013-09-02 00:35:38 +0000
 # ************************************************************
 
 
@@ -28,20 +28,21 @@ DROP TABLE IF EXISTS `media`;
 CREATE TABLE `media` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `time_now` bigint(20) DEFAULT NULL,
-  `twitter_id` bigint(20) DEFAULT NULL,
   `created_at` varchar(255) DEFAULT NULL,
+  `source_id` varchar(255) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `name` text,
   `screen_name` varchar(255) DEFAULT NULL,
   `user_location` varchar(255) DEFAULT NULL,
   `text` text,
   `media_url` varchar(255) DEFAULT NULL,
   `media_url_https` text,
   `source` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
   `approved` tinyint(1) DEFAULT '0',
   `hashtag` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 

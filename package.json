@@ -1,6 +1,6 @@
 {
-  "name": "twitter-vine",
-  "description": "Pulls twitter and vine posts with a certain hashtag.",
+  "name": "hashtag-pull",
+  "description": "Pulls twitter, vine, and instagram posts with a certain hashtag.",
   "author": {
     "name": "Jess Frazelle",
     "url": "http://frazelledazzell.com/"

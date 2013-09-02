@@ -1,6 +1,6 @@
 /*
-twitter-vine - v - 2013-08-13
-Pulls twitter and vine posts with a certain hashtag.
+hashtag-pull - v - 2013-09-01
+Pulls twitter, vine, and instagram posts with a certain hashtag.
 Lovingly coded by Jess Frazelle  - http://frazelledazzell.com/ 
 */
 function get_feed(){

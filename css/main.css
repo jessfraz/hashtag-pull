@@ -260,6 +260,9 @@ a:focus {
   margin: 0;
   padding: 0;
 }
+.feed li img.instagram {
+  max-width: 100%;
+}
 .pull-right {
   float: right;
 }

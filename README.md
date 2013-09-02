@@ -1,5 +1,5 @@
-### Twitter and Vine Hashtag Feed
-Get all Twitter and Vine posts with a certain hashtag, print the feed, and save to a database for future use. See working [example](http://junit.co/twitter-vine/).
+### Twitter, Vine, and Instagram Hashtag Feed
+Get all Twitter and Vine posts with a certain hashtag, print the feed, and save to a database for future use. See working [example](http://junit.co/hashtag-pull/).
 
 ## How it works
 - Searches Twitter for images with the hashtag and saves them to the database.
@@ -8,17 +8,28 @@ Get all Twitter and Vine posts with a certain hashtag, print the feed, and save 
 - Shows the feed of the pictures and videos from the database, and refreshes the feed every five minutes.
 
 ### Configurations
-- Set the hashtag to be pulled in [config.php](https://github.com/jfrazelle/twitter-vine/tree/master/config.php).
-- Backups are located [here](https://github.com/jfrazelle/twitter-vine/tree/master/db).
+- Set the hashtag to be pulled in [config.php](https://github.com/jfrazelle/hashtag-pull/tree/master/config.php).
+- Backups are located [here](https://github.com/jfrazelle/hashtag-pull/tree/master/db).
 
-	- Place database credentials into [config.php](https://github.com/jfrazelle/twitter-vine/tree/master/config.php).
+	- Place database credentials into [config.php](https://github.com/jfrazelle/hashtag-pull/tree/master/config.php).
 
 ### Create a Twitter application
 1. Sign in with [Twitter Developer](https://dev.twitter.com/)
 2. Hover over your name in the top right corner then click "My Applications"
 3. Create a New Application. Enter a name (this is for your reference), a description (again for your reference), and your site's URL. The callback URL is a moot point for the use of the application so it can be left blank.
 4. Create my Access Token (this is a button, click it)
-5. View the details tab. Copy and paste the correlating keys and secrets into [config.php](https://github.com/jfrazelle/twitter-vine/tree/master/config.php).
+5. View the details tab. Copy and paste the correlating keys and secrets into [config.php](https://github.com/jfrazelle/hashtag-pull/tree/master/config.php).
+
+### Create an Instagram application
+1. Sign in with [Instagram Developer](http://instagram.com/developer/)
+2. Click "Register Your Application" (this is a button, click it).
+3. Create a New Application. Enter a name (this is for your reference), a description (again for your reference), your site's URL, and the url for the directory ```instagram``` where your app will live for the redirect uri.
+4. Create my Access Token (this is a button, click it)
+5. View the details tab. Copy and paste the correlating keys and secrets into [config.php](https://github.com/jfrazelle/hashtag-pull/tree/master/config.php).
+6. Upload the app to your sever and navigate to the instagram directory from your browser.
+7. Authenticate your app.
+8. Copy and paste the value for the access token into the access token for
+   instagram field in [config.php](https://github.com/jfrazelle/hashtag-pull/tree/master/config.php).
 
 ### Recommendations
 Since this is using a work around for what will eventually be replaced by the Vine API, I would suggest using a cron job for the ```update()``` function and only calling from the database when a visitor hits the server. This should reduce load time and make sure the server is not over worked.

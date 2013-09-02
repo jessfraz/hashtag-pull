@@ -3,4 +3,4 @@ node_modules/
 uploads/
 *.swp
 *.swo
-
+config.php

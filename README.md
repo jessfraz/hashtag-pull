@@ -41,3 +41,5 @@ This project uses [Grunt](http://gruntjs.com) to automate build tasks (eg. compi
 - Install dev dependencies: `npm install`
 - Run `grunt` to compile, or `grunt server` to start a live development environment.
 
+
+[![Analytics](https://ga-beacon.appspot.com/UA-29404280-16/hashtag-pull/README.md)](https://github.com/jfrazelle/hashtag-pull)

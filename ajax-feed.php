@@ -80,10 +80,10 @@ function shouldUpdate($db, $hashtag){
 
 function updateTwitter($db, $twitter, $hashtag){
     $db_con = mysqli_connect($db['host'], $db['user'], $db['password'], $db['name']);
-    $connection = getConnectionWithAccessToken($twitter['access_token'], $twitter['access_token_secret'], $twitter['consumer_key'], $twitter['consumer_secret']);
+    $connection = new TwitterOAuth($twitter['consumer_key'], $twitter['consumer_secret'], $twitter['access_token'], $twitter['access_token_secret']);
     $content['twitter'] = $connection->get(
         "search/tweets", array(
-            'q' => '#'.$twitter['hashtag'].' filter:images',
+            'q' => '#'.$hashtag.' filter:images',
             'since_id' => $twitter['last_id'],
             'include_entities' => true,
             'lang' => 'en',
@@ -93,7 +93,7 @@ function updateTwitter($db, $twitter, $hashtag){
 
     $content['vine'] = $connection->get(
         "search/tweets", array(
-            'q' => '#'.$twitter['hashtag'].' vine.co filter:links',
+            'q' => '#'.$hashtag.' vine.co filter:links',
             'since_id' => $twitter['last_id'],
             'include_entities' => true,
             'lang' => 'en',
@@ -131,7 +131,7 @@ function updateTwitter($db, $twitter, $hashtag){
                         $media_url_https = $video_cell[0];
                     }
                     if ($is_tweet || $is_vine){
-                        if (mysqli_query($db_con, 
+                        if (mysqli_query($db_con,
                             "insert into media (time_now, source_id, created_at, user_id, name, screen_name, user_location, text, media_url, media_url_https, source, type, hashtag) ".
                             "values('$time_now', '$twitter_id', '$created_at','$user_id','$this_name','$screen_name', '$user_location', '$text', '$media_url', '$media_url_https', 'twitter', '$type', '$hashtag')")){}
                     }
@@ -182,7 +182,7 @@ function updateInstagram($db, $instagram, $hashtag){
             $media_url_https= '';
         }
 
-        if (mysqli_query($db_con, 
+        if (mysqli_query($db_con,
             "insert into media (time_now, source_id, created_at, user_id, name, screen_name, text, media_url, media_url_https, source, type, hashtag) ".
             "values('$time_now', '$source_id', '$created_at','$user_id','$this_name','$screen_name', '$text', '$media_url', '$media_url_https', 'instagram', '$type', '$hashtag')")){}
     }
@@ -196,7 +196,7 @@ function outputFeed($db, $hashtag){
     $db_con = mysqli_connect($db['host'], $db['user'], $db['password'], $db['name']);
     $query = mysqli_query($db_con, "SELECT * FROM media WHERE hashtag='$hashtag' ORDER BY source_id DESC");
     if (mysqli_num_rows($query) > 0) {
-        while ($post = mysqli_fetch_assoc($query)) { 
+        while ($post = mysqli_fetch_assoc($query)) {
             if ($post['type'] == 'photo'){
                 $media = '<img class="' . $post['source'] . '" src="' . $post['media_url'] . '" alt=""/>';
             } else if ($post['media_url_https']!='') {

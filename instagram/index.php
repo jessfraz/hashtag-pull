@@ -1,7 +1,7 @@
 <?php
 include('../config.php');
 
-if (isset($_REQUEST['code'])){
+if (isset($_REQUEST['token'])){
 
     // get access token
     $checkin_url = "https://api.instagram.com/oauth/access_token";
@@ -11,7 +11,7 @@ if (isset($_REQUEST['code'])){
         'client_secret' => $instagram['client_secret'],
         'grant_type' => 'authorization_code',
         'redirect_uri' =>  $instagram['redirect_uri'],
-        'code' => $_REQUEST['code']
+        'token' => $_REQUEST['token']
     );
 
     $curl = curl_init($checkin_url);
@@ -22,8 +22,8 @@ if (isset($_REQUEST['code'])){
 
     print($response);
 
-} else {	
-    header("Location:https://api.instagram.com/oauth/authorize/?client_id=" . $instagram['client_id'] ."&response_type=code&redirect_uri=" . $instagram['redirect_uri'] . "&response_type=code");
+} else {
+    header("Location:https://api.instagram.com/oauth/authorize/?client_id=" . $instagram['client_id'] ."&response_type=code&redirect_uri=" . $instagram['redirect_uri'] . "&response_type=token");
 }
 
 ?>

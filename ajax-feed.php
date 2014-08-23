@@ -106,12 +106,14 @@ function updateTwitter($db, $twitter, $hashtag){
             foreach($media->statuses as $tweet){
                 if ($tweet->id > $twitter['last_id'] && (!empty($tweet->entities->urls) || isset($tweet->entities->media))){
                     $twitter_id = $tweet->id;
+                    $tweet_id = $tweet->id_str;
                     $created_at = $tweet->created_at;
                     $user_id = $tweet->user->id;
                     $this_name = mysqli_real_escape_string($db_con, stripEmojis($tweet->user->name));
                     $screen_name =  mysqli_real_escape_string($db_con, $tweet->user->screen_name);
                     $user_location = mysqli_real_escape_string($db_con, stripEmojis($tweet->user->location));
                     $text = mysqli_real_escape_string($db_con, stripEmojis($tweet->text));
+                    $link_post = 'https://twitter.com/'.$screen_name.'/status/'.$tweet_id;
                     $time_now = time();
                     $is_vine = false;
                     $is_tweet = false;
@@ -132,8 +134,8 @@ function updateTwitter($db, $twitter, $hashtag){
                     }
                     if ($is_tweet || $is_vine){
                         if (mysqli_query($db_con,
-                            "insert into media (time_now, source_id, created_at, user_id, name, screen_name, user_location, text, media_url, media_url_https, source, type, hashtag) ".
-                            "values('$time_now', '$twitter_id', '$created_at','$user_id','$this_name','$screen_name', '$user_location', '$text', '$media_url', '$media_url_https', 'twitter', '$type', '$hashtag')")){}
+                            "insert into media (time_now, source_id, created_at, user_id, name, screen_name, user_location, text, media_url, media_url_https, source, type, hashtag, post_url) ".
+                            "values('$time_now', '$twitter_id', '$created_at','$user_id','$this_name','$screen_name', '$user_location', '$text', '$media_url', '$media_url_https', 'twitter', '$type', '$hashtag', '$link_post')")){}
                     }
                 }
             }
@@ -171,6 +173,7 @@ function updateInstagram($db, $instagram, $hashtag){
         $screen_name = mysqli_real_escape_string($db_con,  $insta['user']['username']);
         $this_name =  mysqli_real_escape_string($db_con, stripEmojis($insta['user']['full_name']));
         $text =  mysqli_real_escape_string($db_con, stripEmojis($insta['caption']['text']));
+        $post_link	= $insta['link'];
 
         if ($insta['type'] == 'video'){
             $type= 'video';
@@ -183,8 +186,8 @@ function updateInstagram($db, $instagram, $hashtag){
         }
 
         if (mysqli_query($db_con,
-            "insert into media (time_now, source_id, created_at, user_id, name, screen_name, text, media_url, media_url_https, source, type, hashtag) ".
-            "values('$time_now', '$source_id', '$created_at','$user_id','$this_name','$screen_name', '$text', '$media_url', '$media_url_https', 'instagram', '$type', '$hashtag')")){}
+            "insert into media (time_now, source_id, created_at, user_id, name, screen_name, text, media_url, media_url_https, source, type, hashtag, post_url) ".
+            "values('$time_now', '$source_id', '$created_at','$user_id','$this_name','$screen_name', '$text', '$media_url', '$media_url_https', 'instagram', '$type', '$hashtag', '$post_link')")){}
     }
 
     mysqli_close($db_con);
@@ -194,18 +197,18 @@ function updateInstagram($db, $instagram, $hashtag){
 function outputFeed($db, $hashtag){
     $html = '<ul class="feed">';
     $db_con = mysqli_connect($db['host'], $db['user'], $db['password'], $db['name']);
-    $query = mysqli_query($db_con, "SELECT * FROM media WHERE hashtag='$hashtag' ORDER BY source_id DESC");
+    $query = mysqli_query($db_con, "SELECT * FROM media WHERE hashtag='$hashtag' ORDER BY time_now DESC");
     if (mysqli_num_rows($query) > 0) {
         while ($post = mysqli_fetch_assoc($query)) {
             if ($post['type'] == 'photo'){
-                $media = '<img class="' . $post['source'] . '" src="' . $post['media_url'] . '" alt=""/>';
+                $media = '<a href="' . $post['post_url'] . '"><img class="' . $post['source'] . '" src="' . $post['media_url'] . '" alt=""/></a>';
             } else if ($post['media_url_https']!='') {
-                $media = '<video width="320" height="320" controls poster="'. $post['media_url'] . '">
+                $media = '<video width="100%" height="100%" controls poster="'. $post['media_url'] . '">
                     <source src="'. $post['media_url_https'] . '" type="video/mp4">
                     Your browser does not support the video tag.
                     </video>';
             }
-            $html .= '<li class="'.$post['source'].'">'.$media.'</li>';
+            $html .= '<li class="'.$post['source'].' col-sm-3">'.$media.'</li>';
         }
     }
     $html .= '</ul>';

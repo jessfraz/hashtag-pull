@@ -41,6 +41,7 @@ CREATE TABLE `media` (
   `type` varchar(255) DEFAULT NULL,
   `approved` tinyint(1) DEFAULT '0',
   `hashtag` varchar(255) DEFAULT NULL,
+  `likes` smallint(4) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `source_id` (`source_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

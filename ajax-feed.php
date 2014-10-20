@@ -173,7 +173,11 @@ function updateInstagram($db, $instagram, $hashtag){
         $screen_name = mysqli_real_escape_string($db_con,  $insta['user']['username']);
         $this_name =  mysqli_real_escape_string($db_con, stripEmojis($insta['user']['full_name']));
         $text =  mysqli_real_escape_string($db_con, stripEmojis($insta['caption']['text']));
+<<<<<<< HEAD
         $post_link	= $insta['link'];
+=======
+        $likes = $insta['likes']['count'];
+>>>>>>> dc889174c65f190c99c61b6db7a0a5b7b7713d9c
 
         if ($insta['type'] == 'video'){
             $type= 'video';
@@ -186,8 +190,8 @@ function updateInstagram($db, $instagram, $hashtag){
         }
 
         if (mysqli_query($db_con,
-            "insert into media (time_now, source_id, created_at, user_id, name, screen_name, text, media_url, media_url_https, source, type, hashtag, post_url) ".
-            "values('$time_now', '$source_id', '$created_at','$user_id','$this_name','$screen_name', '$text', '$media_url', '$media_url_https', 'instagram', '$type', '$hashtag', '$post_link')")){}
+            "insert into media (time_now, source_id, created_at, user_id, name, screen_name, text, likes, media_url, media_url_https, source, type, hashtag, post_url) ".
+            "values('$time_now', '$source_id', '$created_at','$user_id','$this_name','$screen_name', '$text', '$likes', '$media_url', '$media_url_https', 'instagram', '$type', '$hashtag', '$post_link')")){}
     }
 
     mysqli_close($db_con);

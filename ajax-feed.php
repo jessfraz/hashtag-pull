@@ -173,11 +173,7 @@ function updateInstagram($db, $instagram, $hashtag){
         $screen_name = mysqli_real_escape_string($db_con,  $insta['user']['username']);
         $this_name =  mysqli_real_escape_string($db_con, stripEmojis($insta['user']['full_name']));
         $text =  mysqli_real_escape_string($db_con, stripEmojis($insta['caption']['text']));
-<<<<<<< HEAD
-        $post_link	= $insta['link'];
-=======
         $likes = $insta['likes']['count'];
->>>>>>> dc889174c65f190c99c61b6db7a0a5b7b7713d9c
 
         if ($insta['type'] == 'video'){
             $type= 'video';

@@ -1,3 +1,5 @@
+**NOTE:** As of a long time ago, I have not been keeping up with any of the API changes. If you want to maintain this, go ahead. But currently it is not and has not been kept up to date with the APIs.
+
 ### Twitter, Vine, and Instagram Hashtag Feed
 Get all Twitter and Vine posts with a certain hashtag, print the feed, and save to a database for future use.
 
